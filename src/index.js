@@ -10,7 +10,7 @@ import {
 } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: 'http://localhost:5004/graphql',
+  uri: 'https://pdp-react-app.herokuapp.com/graphql',
   cache: new InMemoryCache()
 });
 
