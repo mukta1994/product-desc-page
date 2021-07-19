@@ -36,11 +36,11 @@ function App() {
     </Helmet> */}
     <h1>asdfgh</h1>
     <ProductDesc />
-    <Router>
+    {/* <Router>
       <Switch>
         <Route path="/product" component={ProductDesc} />
       </Switch>
-    </Router>
+    </Router> */}
   </div>
 
 }
