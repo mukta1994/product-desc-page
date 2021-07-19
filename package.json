@@ -22,11 +22,11 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start-client": "react-scripts start",
     "build": "react-scripts build && (cd microservices && yarn install )",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "concurrently \"cd microservices && yarn start:product\" \"cd microservices && yarn start:pdp\""
+    "start": "concurrently \"cd microservices && yarn start:product\" \"cd microservices && yarn start:pdp\""
   },
   "eslintConfig": {
     "extends": [
