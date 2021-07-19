@@ -81,8 +81,8 @@ const productss = {
 
 const getProducts = async() => {
   const res = productss
-  const json = res.json();
-  return json;
+  //const json = res.json();
+  return res;
 }
 
 const getProduct = async(product) => {
