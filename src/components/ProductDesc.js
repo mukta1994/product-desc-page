@@ -1,80 +1,51 @@
 import {
-  useLazyQuery,
-  gql
+  useQuery
 } from "@apollo/client";
 import Dimensions from './Dimensions/Dimensions'
 import SlideShow from './SlideShow'
-import { useState, useEffect } from 'react'
+//import { useState, useEffect } from 'react'
+import { Product } from '../query/query'
+import { useLocation } from "react-router-dom";
+import { matchPath } from 'react-router'
 
 
 const ProductDesc = () => {
 
-  const [title, setTitle] = useState("Sport Shoe White 38");
+  const loc = useLocation();
 
+  const match = matchPath(loc.pathname, {
+    path: '/product/:productid/:variantid/:title',
+    exact: true,
+    strict: false
+  })
 
-  const Product = gql`
-  {
-    variant(title:"${title}"){
-      product{
-        id
-      title
-      size
-      color
-      desc
-      quantity   
-      }
-   images{
-      src
-      alt
-    }
-    }
-    products {
-      id
-      name
-      dimensions{
-        colors{
-          title
-          images{
-            src
-            alt
-          }
-        }
-        sizes{
-          title
-        }
-      }
-    }
-  }
-`;
+  const {productid,variantid,title} = match.params
 
+  const  { loading, error, data } = useQuery(Product, { variables: {id: parseInt(productid), variantid:parseInt(variantid), title: title } });
 
-  const [runQuery, { loading, error, data }] = useLazyQuery(Product);
-
-  useEffect(() => {
-    runQuery();
-  }, []);
-
-  const callFun = (titlename) => {
-    setTitle(titlename);
-    runQuery();
-  }
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   return (<div className="container pt-4">
     {data &&
-      <div className="d-flex">
-        <div className="w-50">
-          <SlideShow showimgs={data.variant.images} />
+      <>
+        <div className="description-container">
+          <div className="slide-section">
+            <SlideShow showimgs={data.variant.images} />
+          </div>
+          <div className="p-2 float-left info-section">
+            <h3>{data.product.name}</h3>
+            <h6>{data.variant.product.title}</h6>
+            <h5 className="pb-2 pt-1">${data.variant.product.price}</h5>
+            <Dimensions features={data.product.features.attributes}  attr ={data.variant}/> 
+            {/* <button onClick={()=>showSelectedData()}>Add to cart</button>             */}
+          </div>
         </div>
-
-        <div className="p-2">
-          <h3>{data.variant.product.title}</h3>
-          <Dimensions dimensions={data.products.dimensions} size={data.variant.product.size}
-            color={data.variant.product.color} quan={data.variant.product.quantity} fun={(name) => callFun(name)} />
-          <div>{data.variant.product.desc}</div>
+        <div className="container description">
+          <h3>{data.variant.description_title}</h3>
+          <p>{data.variant.description}</p>
         </div>
-      </div>
+      </>
     }
   </div>)
 }

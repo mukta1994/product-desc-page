@@ -1,11 +1,10 @@
 import './App.css';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import ProductDesc from "./components/ProductDesc";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-// import { Helmet } from "react-helmet"
-// import {
-//   useQuery,
-//   gql
-// } from "@apollo/client";
+import Ugc from "./components/Ugc";
+import Home from "./components/Home";
+import Meta from "./components/Meta";
 
 
 
@@ -20,7 +19,7 @@ function App() {
   //     }
   //     }
   // `;
-
+  const title = "1/1/OZWEEGO SHOES Green"
   // const { loading, error, data } = useQuery(Metadata);
   // if (loading) return <p>Loading...</p>;
   // if (error) return <p>Error :(</p>;
@@ -34,13 +33,16 @@ function App() {
         content={data.metadata.desc}
       />
     </Helmet> */}
-    <h1>asdfgh</h1>
-    <ProductDesc />
-    {/* <Router>
-      <Switch>
-        <Route path="/product" component={ProductDesc} />
-      </Switch>
-    </Router> */}
+  <Meta id={1}/>
+    <Router>
+      <Route exact path="/" >
+        <Home title={title}/>
+      </Route>
+      <Route exact path="/product/:productid/:variantid/:title">
+        <ProductDesc />
+        <Ugc />
+      </Route>
+    </Router>
   </div>
 
 }
