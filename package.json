@@ -30,10 +30,10 @@
   },
   "scripts": {
     "start-client" : "react-scripts start",
-    "build": "react-scripts build && (cd .. && yarn install )",
+    "build": "react-scripts build && (cd ../microservices && yarn install )",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start": "concurrently \"cd .. && yarn start:product\" \"cd .. && yarn start:pdp\" \"cd .. && yarn start:ugc\" \"cd .. && yarn start:meta\""
+    "start": "concurrently \"cd ../microservices && yarn start:product\" \"cd ../microservices && yarn start:pdp\" \"cd ../microservices && yarn start:ugc\" \"cd ../microservices && yarn start:meta\""
   },
   "eslintConfig": {
     "extends": [
